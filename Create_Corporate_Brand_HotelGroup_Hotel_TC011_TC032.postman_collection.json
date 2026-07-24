@@ -108,11 +108,12 @@
               "var uniquePart = Date.now().toString().slice(-6) + Math.floor(Math.random() * 1000);",
               "var corpCode = 'CorpPC_' + suffix + '_' + uniquePart;",
               "pm.collectionVariables.set('corpCode', corpCode);",
-              "pm.collectionVariables.set('mappedCorpTimezone', pm.collectionVariables.get('corpTimezone'));",
+              "var timezoneMap = { 'UTC-05:00': 'EDT', 'UTC-06:00': 'CST', 'UTC+00:00': 'UTC', 'UTC+01:00': 'CET', 'UTC+02:00': 'SAST', 'UTC+04:00': 'GST', 'UTC+05:30': 'IST', 'UTC+08:00': 'SGT', 'UTC+09:00': 'JST', 'UTC+10:00': 'AEST' };",
+              "pm.collectionVariables.set('mappedCorpTimezone', timezoneMap[pm.collectionVariables.get('corpTimezone')] || pm.collectionVariables.get('corpTimezone'));",
               "pm.collectionVariables.set('corpCurrencySymbol', pm.collectionVariables.get('corpCurrency'));",
               "var dialCodeMap = { 'USA': '+1', 'IND': '+91', 'GBR': '+44', 'SGP': '+65', 'AUS': '+61', 'DEU': '+49', 'ARE': '+971', 'JPN': '+81', 'KOR': '+82', 'MEX': '+52', 'ZAF': '+27', 'BRA': '+55' };",
               "pm.collectionVariables.set('corpDialCode', dialCodeMap[pm.collectionVariables.get('corpCountry')] || '+1');",
-              "console.log('Creating ONE shared Corporate for this run: ' + corpCode + ' using first test case: ' + testCaseId);"
+              "console.log('Creating ONE shared Corporate for this run: ' + corpCode + ' using first test case: ' + testCaseId + ' | timezone abbreviation: ' + pm.collectionVariables.get('mappedCorpTimezone'));"
             ]
           }
         },
@@ -274,9 +275,10 @@
               "var dialCodeMap = { 'USA': '+1', 'IND': '+91', 'GBR': '+44', 'SGP': '+65', 'AUS': '+61', 'DEU': '+49', 'ARE': '+971', 'JPN': '+81', 'KOR': '+82', 'MEX': '+52', 'ZAF': '+27', 'BRA': '+55' };",
               "var hotelCountry = pm.collectionVariables.get('hotelCountry');",
               "pm.collectionVariables.set('hotelDialCode', dialCodeMap[hotelCountry] || '+1');",
-              "pm.collectionVariables.set('mappedHotelTimezone', pm.collectionVariables.get('hotelTimezone'));",
+              "var timezoneMap = { 'UTC-05:00': 'EDT', 'UTC-06:00': 'CST', 'UTC+00:00': 'UTC', 'UTC+01:00': 'CET', 'UTC+02:00': 'SAST', 'UTC+04:00': 'GST', 'UTC+05:30': 'IST', 'UTC+08:00': 'SGT', 'UTC+09:00': 'JST', 'UTC+10:00': 'AEST' };",
+              "pm.collectionVariables.set('mappedHotelTimezone', timezoneMap[pm.collectionVariables.get('hotelTimezone')] || pm.collectionVariables.get('hotelTimezone'));",
               "pm.collectionVariables.set('hotelCurrencySymbol', pm.collectionVariables.get('hotelCurrency'));",
-              "console.log('Creating Hotel: ' + hotelCode + ' / ' + hotelName + ' under shared CorporateId: ' + pm.collectionVariables.get('createdCorporateId') + ' BrandId: ' + pm.collectionVariables.get('brandId') + ' HotelGroupId: ' + pm.collectionVariables.get('hotelGroupId'));"
+              "console.log('Creating Hotel: ' + hotelCode + ' / ' + hotelName + ' under shared CorporateId: ' + pm.collectionVariables.get('createdCorporateId') + ' BrandId: ' + pm.collectionVariables.get('brandId') + ' HotelGroupId: ' + pm.collectionVariables.get('hotelGroupId') + ' | timezone abbreviation: ' + pm.collectionVariables.get('mappedHotelTimezone'));"
             ]
           }
         },
